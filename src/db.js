@@ -1,11 +1,12 @@
 const { Pool } = require('pg');
-
+const dotenv = require('dotenv');
+dotenv.config();
 const pool = new Pool({
-  user: 'onlinedatabase_ke7q_user', // Replace with your actual PostgreSQL username
-  host: 'pg-cp7faq7sc6pc73a8srm0-a.oregon-postgres.render.com', // Replace with your actual PostgreSQL host
-  database: 'onlinedatabase_ke7q', // Replace with your actual PostgreSQL database name
-  password: 'aLXlq0xprRAWvdwsQJKUQaoEfdGLCVYr', // Replace with your actual PostgreSQL password
-  port: 5432, // Replace with your actual PostgreSQL port if different
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT,
   ssl: {
     rejectUnauthorized: false,
   },
