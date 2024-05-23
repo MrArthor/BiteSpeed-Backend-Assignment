@@ -1,9 +1,8 @@
 const request = require('supertest');
-const app = require('../src/index'); // Adjust the path to your app entry point
+const app = require('../src/index'); // Ensure this path is correct
 const pool = require('../src/db');
 
 beforeAll(async () => {
-  // Seed the database with initial data
   await pool.query('DELETE FROM contacts');
 
   await pool.query(`
@@ -33,7 +32,6 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  // Clean up the database
   await pool.query('DELETE FROM contacts');
   await pool.end();
 });
@@ -47,7 +45,7 @@ describe('POST /identify', () => {
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
       contact: {
-        primaryContactId: 1, // corrected key to match the API response format
+        primaryContactId: 1,
         emails: ['lorraine@hillvalley.edu', 'mcfly@hillvalley.edu'],
         phoneNumbers: ['123456'],
         secondaryContactIds: [2]
@@ -63,7 +61,7 @@ describe('POST /identify', () => {
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
       contact: {
-        primaryContactId: 3, // corrected key to match the API response format
+        primaryContactId: 3,
         emails: ['george@hillvalley.edu', 'biffsucks@hillvalley.edu'],
         phoneNumbers: ['919191', '717171'],
         secondaryContactIds: [5]
@@ -77,7 +75,7 @@ describe('POST /identify', () => {
       .send({ email: 'newemail@hillvalley.edu', phoneNumber: '999999' });
 
     expect(response.status).toBe(200);
-    expect(response.body.contact.primaryContactId).toBeGreaterThan(20); // Assume new IDs start from 21
+    expect(response.body.contact.primaryContactId).toBeGreaterThan(20);
     expect(response.body.contact.emails).toEqual(['newemail@hillvalley.edu']);
     expect(response.body.contact.phoneNumbers).toEqual(['999999']);
     expect(response.body.contact.secondaryContactIds).toEqual([]);
