@@ -1,9 +1,9 @@
 const express = require('express');
 const pool = require('./db');
-
+const testConnection = require('./test-db-connection');
 const app = express();
 app.use(express.json());
-
+testConnection();
 app.post('/identify', async (req, res) => {
   const { email, phoneNumber } = req.body;
 

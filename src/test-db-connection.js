@@ -9,5 +9,4 @@ const testConnection = async () => {
     console.error('Database connection failed:', error);
   }
 };
-
-testConnection();
+module.exports =testConnection;
